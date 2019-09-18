@@ -21,7 +21,7 @@ class TVector
 {
 protected:
   ValType *pVector;
-  int Size;       // размер вектора
+  int size;       // размер вектора
   int StartIndex; // индекс первого элемента вектора
 public:
   TVector(int s = 10, int si = 0);
@@ -47,14 +47,13 @@ public:
   // ввод-вывод
   friend istream& operator>>(istream &in, TVector &v)
   {
-	for (int i = 0; i < v.Size; i++)
+	for (int i = 0; i < v.size; i++)
       in >> v.pVector[i];
     return in;
   }
   friend ostream& operator<<(ostream &out, const TVector &v)
   {
-	out << 'uwu' << endl;
-    for (int i = 0; i < v.Size; i++)
+    for (int i = 0; i < v.size; i++)
       out << v.pVector[i] << ' ';
     return out;
   }
@@ -63,15 +62,15 @@ public:
 template <class ValType>
 TVector<ValType>::TVector(int s, int si)
 {
-	Size = s;
-	pVector = new ValType[Size];
+	size = s;
+	pVector = new ValType[size];
 	StartIndex = si;
 }
 
 template <class ValType> //конструктор копирования
 TVector<ValType>::TVector(const TVector<ValType> &v)
 {
-} /*-------------------------------------------------------------------------*/
+}
 
 template <class ValType>
 TVector<ValType>::~TVector()
@@ -97,7 +96,16 @@ bool TVector<ValType>::operator!=(const TVector &v) const
 template <class ValType> // присваивание
 TVector<ValType>& TVector<ValType>::operator=(const TVector &v)
 {
-} /*-------------------------------------------------------------------------*/
+	if (size != v.size) {
+		size = v.size;
+		delete[] pVector;
+		pVector = new T[size];
+	}
+	StartIndex = v.StartIndex;
+	for (int i = 0; i < size; i++)
+		pVector[i] = v.pVecto[i];
+	return *this
+}
 
 template <class ValType> // прибавить скаляр
 TVector<ValType> TVector<ValType>::operator+(const ValType &val)
