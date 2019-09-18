@@ -70,23 +70,37 @@ TVector<ValType>::TVector(int s, int si)
 template <class ValType> //конструктор копирования
 TVector<ValType>::TVector(const TVector<ValType> &v)
 {
+	size = v.size;
+	StartIndex = v.StartIndex;
+	pVector = new ValType[size];
+	for (int i = 0; i < size; i++)
+		pVector[i] = v.pVector[i];
 }
 
 template <class ValType>
 TVector<ValType>::~TVector()
 {
-} /*-------------------------------------------------------------------------*/
+	delete[] pVector;
+}
 
 template <class ValType> // доступ
 ValType& TVector<ValType>::operator[](int pos)
 {
-	return 
-} /*-------------------------------------------------------------------------*/
+	return pVector[pos];
+}
 
 template <class ValType> // сравнение
 bool TVector<ValType>::operator==(const TVector &v) const
 {
-} /*-------------------------------------------------------------------------*/
+	if (size != v.size)
+		return false;
+	else {
+		for (int i = 0; i < size; i++)
+			if (pVector != v.pVector)
+				return false;
+	}
+	return true;
+}
 
 template <class ValType> // сравнение
 bool TVector<ValType>::operator!=(const TVector &v) const
@@ -161,7 +175,7 @@ public:
   }
   friend ostream & operator<<( ostream &out, const TMatrix &mt)
   {
-    for (int i = 0; i < mt.Size; i++)
+    for (int i = 0; i < mt.size; i++)
       out << mt.pVector[i] << endl;
     return out;
   }
