@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "utmatrix.h"
+using namespace std;
 //---------------------------------------------------------------------------
 
 void main()
@@ -15,8 +16,8 @@ void main()
   int i, j;
 
   setlocale(LC_ALL, "Russian");
-  cout << "Тестирование программ поддержки представления треугольных матриц"
-    << endl;
+  cout << "Тестирование программ поддержки представления треугольных матриц" << endl;
+  cout << "Matrix a = " << endl << a << endl;
   for (i = 0; i < 5; i++)
     for (j = i; j < 5; j++ )
     {
